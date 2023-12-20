@@ -1,8 +1,10 @@
-﻿using VContainer;
+﻿using UnityEngine;using VContainer;
+using VContainer.Unity;
 
-public static class FactoryInstaller
+public class FactoryInstaller : MonoBehaviour, IInstaller
 {
-    public static void RegisterFactories(this IContainerBuilder builder)
+    //TODO: Delete
+    public void Install(IContainerBuilder builder)
     {
         builder.Register<IMVVMFactory, MVVMFactory>(Lifetime.Singleton);
     }

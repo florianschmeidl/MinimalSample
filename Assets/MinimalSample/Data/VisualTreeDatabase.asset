@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5affc0985c840f2a76285be7cc8a404, type: 3}
+  m_Name: VisualTreeDatabase
+  m_EditorClassIdentifier: 
+  m_DatabaseEntries:
+  - Name: LoginView
+    VisualTreeAsset: {fileID: 9197481963319205126, guid: cb634ceb773d88e45994fdc0e49caa0e,
+      type: 3}
+  - Name: HomeView
+    VisualTreeAsset: {fileID: 9197481963319205126, guid: 05b547007e441a14c88ec41f844bc835,
+      type: 3}
+  - Name: CasesView
+    VisualTreeAsset: {fileID: 9197481963319205126, guid: 0439c701161c14b429d7fefa593ec62d,
+      type: 3}

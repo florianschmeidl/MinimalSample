@@ -1,3 +1,4 @@
+using System;
 using Unity.Properties;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -6,7 +7,6 @@ using VContainer.Unity;
 public class LoginViewModel : IInitializable, IStartable
 {
     // Dependencies
-    private readonly UIDocument m_LoginUIDocument;
     private readonly LoginModel m_LoginModel;
 
     // Properties
@@ -25,12 +25,14 @@ public class LoginViewModel : IInitializable, IStartable
     [CreateProperty] 
     public DisplayStyle LoadingVisibility { get; set; } = DisplayStyle.None;
 
+    [CreateProperty] 
+    public Action ButtonClicked { get; private set; }
+
     // Constructors
-    public LoginViewModel(UIDocument loginUIDocument, LoginModel loginModel)
+    public LoginViewModel(LoginModel loginModel)
     {
         Debug.Log($"[{this}] Constructor called!");
-
-        m_LoginUIDocument = loginUIDocument;
+        ButtonClicked = HandleButtonClicked;
         m_LoginModel = loginModel;
     }
 
@@ -38,11 +40,7 @@ public class LoginViewModel : IInitializable, IStartable
     void IInitializable.Initialize()
     {
         Debug.Log($"[{this}] Initialized!");
-
         m_LoginModel.LoginModelUpdated += UpdateFromModel;
-        m_LoginUIDocument.rootVisualElement.dataSource = this;
-        var button = m_LoginUIDocument.rootVisualElement.Query<Button>().First();
-        button.clicked += HandleButtonClicked;
     }
 
     void IStartable.Start()

@@ -8,16 +8,17 @@ public class ProjectLifetimeScope : LifetimeScope
 
     protected override void Configure(IContainerBuilder builder)
     {
-        // Register business logic
-        builder.RegisterBusinessLogic();
-
-        // Register factories
-        builder.RegisterFactories();
-
+        var installers = this.GetComponentsInChildren<IInstaller>();
+        foreach (var installer in installers)
+        {
+            installer.Install(builder);
+        }
+        
         // Instantiate first view
         builder.RegisterBuildCallback(resolver =>
         {
-            resolver.Resolve<IMVVMFactory>().Create(m_LoginView);
+            var uiVisualsHandler = resolver.Resolve<UIVisualsHandler>();
+            resolver.Resolve<IApplicationStateManager>().SetState(ApplicationState.Login);
         });
     }
 }
