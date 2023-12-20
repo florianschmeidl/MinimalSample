@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LoginModel
 {
@@ -7,7 +6,7 @@ public class LoginModel
     private readonly IUserService m_UserService;
     
     // Events
-    public event EventHandler Changed;
+    public event LoginModelUpdated LoginModelUpdated;
 
     // Properties
     public string UserName
@@ -16,16 +15,19 @@ public class LoginModel
         set
         {
             m_UserName = value;
-            Changed?.Invoke(this, EventArgs.Empty);
+            Debug.Log($"[{this}] UserName updated: {m_UserName}");
+            LoginModelUpdated?.Invoke(new(m_UserName, m_Password));
         }
     }
+
     public string Password
     {
         get => m_Password;
         set
         {
             m_Password = value;
-            Changed?.Invoke(this, EventArgs.Empty);
+            Debug.Log($"[{this}] UserName updated: {m_Password}");
+            LoginModelUpdated?.Invoke(new(m_UserName, m_Password));
         }
     }
 
@@ -36,6 +38,8 @@ public class LoginModel
     // Constructors
     public LoginModel(IUserService userService)
     {
+        Debug.Log($"[{this}] Constructor called!");
+
         m_UserService = userService;
         if (m_UserService.IsLoggedIn)
         {
@@ -48,5 +52,4 @@ public class LoginModel
     {
         return await m_UserService.LogIn(m_UserName, m_Password);
     }
-
 }

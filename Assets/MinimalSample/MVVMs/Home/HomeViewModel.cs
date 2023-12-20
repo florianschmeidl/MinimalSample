@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using VContainer.Unity;
 
-public class HomeViewModel : IStartable
+public class HomeViewModel : IStartable, IInitializable
 {
     // Dependencies
     private readonly UIDocument m_LoginUIDocument;
@@ -21,28 +21,23 @@ public class HomeViewModel : IStartable
     public HomeViewModel(UIDocument loginUIDocument, HomeModel homeModel)
     {
         m_LoginUIDocument = loginUIDocument;
-        m_HomeModel = homeModel;
+        m_HomeModel = homeModel;       
+    }
 
+    void IInitializable.Initialize()
+    {
         UpdateFromModel(null, EventArgs.Empty);
         m_HomeModel.Changed += UpdateFromModel;
-        
-        Initialize();
-    }
-
-    private void UpdateFromModel(object sender, EventArgs e)
-    {
-        this.HelloLabel = $"Hello {m_HomeModel.UserName}";
-    }
-
-    private async Awaitable Initialize()
-    {
-        await Awaitable.NextFrameAsync();
-        
         m_LoginUIDocument.rootVisualElement.dataSource = this;
         var casesButton = m_LoginUIDocument.rootVisualElement.Query<Button>().Where(x => x.name == "CasesButton").First();
         var logoutButton = m_LoginUIDocument.rootVisualElement.Query<Button>().Where(x => x.name == "LogOutButton").First();
         casesButton.clicked += HandleCasesButtonClicked;
         logoutButton.clicked += HandleLogOutButtonClicked;
+    }
+
+    private void UpdateFromModel(object sender, EventArgs e)
+    {
+        this.HelloLabel = $"Hello {m_HomeModel.UserName}";
     }
 
     private async void HandleLogOutButtonClicked()
@@ -56,7 +51,7 @@ public class HomeViewModel : IStartable
         LoadingVisibility = DisplayStyle.None;
     }
 
-    private async void HandleCasesButtonClicked()
+    private void HandleCasesButtonClicked()
     {
         LoadingVisibility = DisplayStyle.Flex;
         

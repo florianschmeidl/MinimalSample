@@ -11,25 +11,34 @@ public class UserService : IUserService
 
     public UserService(IUserRepository userRepository)
     {
+        Debug.Log($"[{this}] Constructor called!");
+
         m_UserRepository = userRepository;
     }
 
     // Methods
     public async Awaitable<bool> LogIn(string userName, string password)
     {
-        await Awaitable.WaitForSecondsAsync(5);
+        Debug.Log($"[{this}] Trying to log in...!");
+        await Awaitable.WaitForSecondsAsync(1);
 
-        var user = m_UserRepository.Read(userName);
-        if (user != null && user.Password == password)
+        if(RandomTrueOrFalseUtility.RandomTrueOrFalse == true)
         {
+            Debug.Log($"[{this}] Login success!");
             IsLoggedIn = true;
             LoggedInUser = userName;
             return true;
         }
         else
         {
-            IsLoggedIn = false;
+            Debug.Log($"[{this}] Login failed!");
+            IsLoggedIn = true;
             return false;
         }
+    }
+
+    public Awaitable LogOut()
+    {
+        throw new System.NotImplementedException();
     }
 }

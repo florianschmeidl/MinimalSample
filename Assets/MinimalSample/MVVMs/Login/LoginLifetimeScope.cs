@@ -9,7 +9,7 @@ public class LoginLifetimeScope : LifetimeScope
     
     protected override void Configure(IContainerBuilder builder)
     {
-        builder.RegisterComponent<UIDocument>(m_UIDocument);
+        builder.RegisterComponent(m_UIDocument);
         builder.Register<LoginModel>(Lifetime.Scoped);
         builder.RegisterEntryPoint<LoginViewModel>(Lifetime.Scoped);
     }

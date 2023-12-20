@@ -1,10 +1,9 @@
-using System;
 using Unity.Properties;
 using UnityEngine;
 using UnityEngine.UIElements;
 using VContainer.Unity;
 
-public class LoginViewModel : IStartable
+public class LoginViewModel : IInitializable, IStartable
 {
     // Dependencies
     private readonly UIDocument m_LoginUIDocument;
@@ -29,34 +28,44 @@ public class LoginViewModel : IStartable
     // Constructors
     public LoginViewModel(UIDocument loginUIDocument, LoginModel loginModel)
     {
+        Debug.Log($"[{this}] Constructor called!");
+
         m_LoginUIDocument = loginUIDocument;
         m_LoginModel = loginModel;
-
-        UpdateFromModel(null, EventArgs.Empty);
-        m_LoginModel.Changed += UpdateFromModel;
-        
-        Initialize();
     }
 
-    private void UpdateFromModel(object sender, EventArgs e)
+    // Entrypoints
+    void IInitializable.Initialize()
     {
-        this.UserName = m_LoginModel.UserName;
-        this.Password = m_LoginModel.Password;
-    }
+        Debug.Log($"[{this}] Initialized!");
 
-    private async Awaitable Initialize()
-    {
-        await Awaitable.NextFrameAsync();
-        
+        m_LoginModel.LoginModelUpdated += UpdateFromModel;
         m_LoginUIDocument.rootVisualElement.dataSource = this;
         var button = m_LoginUIDocument.rootVisualElement.Query<Button>().First();
         button.clicked += HandleButtonClicked;
     }
 
+    void IStartable.Start()
+    {
+        Debug.Log($"[{this}] Started!");
+    }
+
+    // Callback for model updated
+    private void UpdateFromModel(LoginModelChangedEventArgs loginModelChangedEventArgs)
+    {
+        Debug.Log($"[{this}] Received update from model!");
+
+        this.UserName = loginModelChangedEventArgs.UserName;
+        this.Password = loginModelChangedEventArgs.Password;
+    }
+
+    // Handlers for user interactions
     private async void HandleButtonClicked()
     {
-        Debug.Log(this.UserName);
-        Debug.Log(this.Password);
+        Debug.Log($"[{this}] HandleButtonClicked!");
+
+        Debug.Log($"[{this}] UserName: {this.UserName}!");
+        Debug.Log($"[{this}] Password: {this.Password}!");
 
         LoadingVisibility = DisplayStyle.Flex;
 
@@ -66,6 +75,7 @@ public class LoginViewModel : IStartable
 
         if (success)
         {
+            // Change to HomeView
         }
         else
         {
@@ -74,11 +84,5 @@ public class LoginViewModel : IStartable
             this.UserName = "";
             this.Password = "";
         }
-    }
-
-    void IStartable.Start()
-    {
-        Debug.Log(this.UserName);
-        Debug.Log(this.Password);
     }
 }
