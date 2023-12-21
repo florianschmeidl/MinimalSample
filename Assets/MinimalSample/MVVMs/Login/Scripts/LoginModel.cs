@@ -4,7 +4,8 @@ public class LoginModel
 {
     // Dependencies
     private readonly IUserService m_UserService;
-    
+    private readonly IApplicationStateManager m_ApplicationStateManager;
+
     // Events
     public event LoginModelUpdated LoginModelUpdated;
 
@@ -26,7 +27,7 @@ public class LoginModel
         set
         {
             m_Password = value;
-            Debug.Log($"[{this}] UserName updated: {m_Password}");
+            Debug.Log($"[{this}] Password updated: {m_Password}");
             LoginModelUpdated?.Invoke(new(m_UserName, m_Password));
         }
     }
@@ -36,11 +37,12 @@ public class LoginModel
     private string m_Password;
     
     // Constructors
-    public LoginModel(IUserService userService)
+    public LoginModel(IUserService userService, IApplicationStateManager applicationStateManager)
     {
         Debug.Log($"[{this}] Constructor called!");
 
         m_UserService = userService;
+        m_ApplicationStateManager = applicationStateManager;
         if (m_UserService.IsLoggedIn)
         {
             this.UserName = m_UserService.LoggedInUser;
@@ -50,6 +52,11 @@ public class LoginModel
     // Methods
     public async Awaitable<bool> TryLogIn()
     {
-        return await m_UserService.LogIn(m_UserName, m_Password);
+        var logIn = await m_UserService.LogIn(m_UserName, m_Password);
+        if (logIn)
+        {
+            m_ApplicationStateManager.SetState(ApplicationStateType.Home);
+        }
+        return logIn;
     }
 }

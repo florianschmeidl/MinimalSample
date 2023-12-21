@@ -6,6 +6,6 @@ namespace Straumann.UI
 {
     public interface IUIFactory
     {
-        Awaitable<UIDocument> Make(string name);
+        Awaitable<UIDocument> Make(ViewType viewType);
     }
 }

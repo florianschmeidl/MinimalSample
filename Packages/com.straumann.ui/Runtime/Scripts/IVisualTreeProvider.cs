@@ -6,6 +6,6 @@ namespace Straumann.UI
 {
     public interface IVisualTreeProvider
     {
-        Awaitable<VisualTreeAsset> GetAsync(string name);
+        Awaitable<VisualTreeAsset> GetAsync(ViewType viewType);
     }
 }

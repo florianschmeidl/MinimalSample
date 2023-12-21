@@ -35,6 +35,18 @@
       "dependencies": {},
       "url": "https://package.openupm.com"
     },
+    "com.straumann.core": {
+      "version": "file:com.straumann.core",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "com.straumann.ui": {
+      "version": "file:com.straumann.ui",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.svermeulen.extenject": {
       "version": "9.2.0-stcf3",
       "depth": 0,

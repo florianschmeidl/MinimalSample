@@ -1,4 +1,6 @@
-﻿using Straumann.UI;
+﻿using MVVMs.Home.Scripts;
+using MVVMs.Login.Scripts;
+using Straumann.UI;
 using UnityEngine;
 using UnityEngine.UIElements;
 using VContainer;
@@ -15,6 +17,13 @@ public class UiInstaller : MonoBehaviour, IInstaller
         builder.RegisterInstance<IVisualTreeDatabase>(m_VisualTreeDatabase);
         builder.RegisterInstance<PanelSettings>(m_PanelSettings);
         builder.Register<IVisualTreeProvider, VisualTreeProvider>(Lifetime.Scoped);
-        builder.Register<UIVisualsHandler>(Lifetime.Singleton);
+        // builder.Register<UIVisualsHandler>(Lifetime.Singleton);
+
+        builder.Register<IViewFactory, ViewFactory>(Lifetime.Singleton);
+        builder.Register<IViewBuilder, LoginViewBuilder>(Lifetime.Scoped);
+        builder.Register<IViewBuilder, HomeViewBuilder>(Lifetime.Scoped);
+
+        builder.Register<IViewValidator, ViewValidator>(Lifetime.Singleton);
+
     }
 }

@@ -12,13 +12,13 @@ namespace Straumann.UI
             m_VisualTreeDatabase = visualTreeDatabase;
         }
 
-        public Awaitable<VisualTreeAsset> GetAsync(string name)
+        public Awaitable<VisualTreeAsset> GetAsync(ViewType viewType)
         {
             var awaitableCompletionSource = new AwaitableCompletionSource<VisualTreeAsset>();
             bool notFound = true;
             foreach (var dataBaseEntry in m_VisualTreeDatabase.DatabaseEntries)
             {
-                if (dataBaseEntry.Name == name)
+                if (dataBaseEntry.ViewType == viewType)
                 {
                     notFound = false;
                     awaitableCompletionSource.SetResult(dataBaseEntry.VisualTreeAsset);

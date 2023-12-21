@@ -3,6 +3,6 @@
 public interface IApplicationStateManager
 {
     event EventHandler<ApplicationStateChangedArgs> ApplicationStateChanged;
-    ApplicationState CurrentApplicationState { get; }
-    void SetState(ApplicationState newState);
+    ApplicationStateType CurrentApplicationStateType { get; }
+    void SetState(ApplicationStateType newStateType);
 }

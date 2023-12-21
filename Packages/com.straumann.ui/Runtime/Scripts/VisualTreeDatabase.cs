@@ -11,7 +11,7 @@ namespace Straumann.UI
         [Serializable]
         public class DatabaseEntry
         {
-            public string Name;
+            public ViewType ViewType;
             public VisualTreeAsset VisualTreeAsset;
         }
 

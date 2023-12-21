@@ -1,6 +1,7 @@
 {
-    "name": "Straumann.UI",
-    "rootNamespace": "Straumann.UI",
+    "name": "Straumann.Core",
+    "rootNamespace": "Straumann.Core",
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: VisualTreeDatabase
   m_EditorClassIdentifier: 
   m_DatabaseEntries:
-  - Name: LoginView
+  - ViewType: 100
     VisualTreeAsset: {fileID: 9197481963319205126, guid: cb634ceb773d88e45994fdc0e49caa0e,
       type: 3}
-  - Name: HomeView
+  - ViewType: 200
     VisualTreeAsset: {fileID: 9197481963319205126, guid: 05b547007e441a14c88ec41f844bc835,
       type: 3}
-  - Name: CasesView
+  - ViewType: 300
     VisualTreeAsset: {fileID: 9197481963319205126, guid: 0439c701161c14b429d7fefa593ec62d,
       type: 3}

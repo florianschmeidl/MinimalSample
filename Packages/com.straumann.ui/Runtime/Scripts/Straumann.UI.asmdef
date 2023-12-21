@@ -1,0 +1,16 @@
+{
+    "name": "Straumann.UI",
+    "rootNamespace": "Straumann.UI",
+    "references": [
+        "Straumann.Core"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

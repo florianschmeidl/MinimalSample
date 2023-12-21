@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Straumann.Core;
+using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
@@ -17,8 +18,8 @@ public class ProjectLifetimeScope : LifetimeScope
         // Instantiate first view
         builder.RegisterBuildCallback(resolver =>
         {
-            var uiVisualsHandler = resolver.Resolve<UIVisualsHandler>();
-            resolver.Resolve<IApplicationStateManager>().SetState(ApplicationState.Login);
+            // var uiVisualsHandler = resolver.Resolve<UIVisualsHandler>();
+            resolver.Resolve<IApplicationStateManager>().SetState(ApplicationStateType.Login);
         });
     }
 }
