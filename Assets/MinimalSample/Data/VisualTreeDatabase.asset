@@ -22,3 +22,6 @@ MonoBehaviour:
   - ViewType: 300
     VisualTreeAsset: {fileID: 9197481963319205126, guid: 0439c701161c14b429d7fefa593ec62d,
       type: 3}
+  - ViewType: 400
+    VisualTreeAsset: {fileID: 9197481963319205126, guid: 9817ed86e0797a744ab7622bb308db75,
+      type: 3}

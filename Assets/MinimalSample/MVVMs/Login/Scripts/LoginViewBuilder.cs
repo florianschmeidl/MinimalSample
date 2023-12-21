@@ -26,7 +26,9 @@ namespace MVVMs.Login.Scripts
         public void Build(UIDocument uiDocument)
         {
             if (m_LoginViewModel == null)
+            {
                 m_LoginViewModel = m_ObjectResolver.Resolve<LoginViewModel>();
+            }
             
             uiDocument.rootVisualElement.dataSource = m_LoginViewModel;
         }

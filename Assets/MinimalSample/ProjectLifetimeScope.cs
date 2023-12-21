@@ -5,20 +5,17 @@ using VContainer.Unity;
 
 public class ProjectLifetimeScope : LifetimeScope
 {
-    [SerializeField] private LoginLifetimeScope m_LoginView;
-
     protected override void Configure(IContainerBuilder builder)
     {
-        var installers = this.GetComponentsInChildren<IInstaller>();
+        var installers = GetComponentsInChildren<IInstaller>();
         foreach (var installer in installers)
         {
             installer.Install(builder);
         }
         
-        // Instantiate first view
         builder.RegisterBuildCallback(resolver =>
         {
-            // var uiVisualsHandler = resolver.Resolve<UIVisualsHandler>();
+            // Instantiate first view
             resolver.Resolve<IApplicationStateManager>().SetState(ApplicationStateType.Login);
         });
     }

@@ -12,6 +12,8 @@ namespace Installers
         {
             builder.Register<IApplicationState, LoginState>(Lifetime.Scoped);
             builder.Register<IApplicationState, HomeState>(Lifetime.Scoped);
+            builder.Register<IApplicationState, CasesState>(Lifetime.Scoped);
+            builder.Register<IApplicationState, Case3dState>(Lifetime.Scoped);
         }
     }
 }

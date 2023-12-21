@@ -37,20 +37,21 @@ namespace Straumann.UI
                 await AddView(mandatoryView);
             }
 
-            List<KeyValuePair<ViewType, UIDocument>> toBeDestroyedList = new List<KeyValuePair<ViewType, UIDocument>>();
+            var elementsToBeDestroyed = new List<KeyValuePair<ViewType, UIDocument>>();
+            
             foreach (var keyValuePair in m_CurrentViews)
             {
                 if (mandatoryViews.Contains(keyValuePair.Key) == false &&
                     optionalViews.Contains(keyValuePair.Key) == false)
                 {
-                    toBeDestroyedList.Add(keyValuePair);
+                    elementsToBeDestroyed.Add(keyValuePair);
                 }
             }
 
-            foreach (var removedElement in toBeDestroyedList)
+            foreach (var elementToBeDestroyed in elementsToBeDestroyed)
             {
-                m_CurrentViews.Remove(removedElement);
-                var uiDocument = removedElement.Value;
+                m_CurrentViews.Remove(elementToBeDestroyed);
+                var uiDocument = elementToBeDestroyed.Value;
                 var panelSettings = uiDocument.panelSettings;
                 GameObject.Destroy(panelSettings.targetTexture);
                 GameObject.Destroy(panelSettings);

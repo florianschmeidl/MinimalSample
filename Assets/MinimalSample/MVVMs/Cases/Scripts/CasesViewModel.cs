@@ -5,60 +5,57 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using VContainer.Unity;
 
-public class CasesViewModel : IStartable, IInitializable
+public class CasesViewModel
 {
     // Dependencies
-    private readonly UIDocument m_CasesUIDocument;
+    private readonly ApplicationStateManager m_ApplicationStateManager;
+    
+    // Properties
+    [CreateProperty]
+    public Action BackButtonClicked => HandleBackButton;
+    [CreateProperty]
+    public Action OpenCase1ButtonClicked =>HandleOpenCase1Button;
+    [CreateProperty]
+    public Action CloseCase1ButtonClicked =>  HandleCloseCase1Button;
+    [CreateProperty]
+    public Action OpenCase2ButtonClicked => HandleOpenCase2Button;
+    [CreateProperty]
+    public Action CloseCase2ButtonClicked => HandleCloseCase2Button;
     
     // Constructors
-    public CasesViewModel(UIDocument casesUIDocument)
+    public CasesViewModel(ApplicationStateManager applicationStateManager)
     {
-        m_CasesUIDocument = casesUIDocument;
+        m_ApplicationStateManager = applicationStateManager;
     }
-
-    void IInitializable.Initialize()
-    {
-        m_CasesUIDocument.rootVisualElement.dataSource = this;
-        var openCase1Button = m_CasesUIDocument.rootVisualElement.Query<Button>().Where(x => x.name == "OpenCase1Button").First();
-        var closeCase1Button = m_CasesUIDocument.rootVisualElement.Query<Button>().Where(x => x.name == "CloseCase1Button").First();
-        var openCase2Button = m_CasesUIDocument.rootVisualElement.Query<Button>().Where(x => x.name == "OpenCase2Button").First();
-        var closeCase2Button = m_CasesUIDocument.rootVisualElement.Query<Button>().Where(x => x.name == "CloseCase2Button").First();
-        var backButton = m_CasesUIDocument.rootVisualElement.Query<Button>().Where(x => x.name == "BackButton").First();
-        openCase1Button.clicked += HandleOpenCase1Button;
-        closeCase1Button.clicked += HandleCloseCase1Button;
-        openCase2Button.clicked += HandleOpenCase2Button;
-        closeCase2Button.clicked += HandleCloseCase2Button;
-        backButton.clicked += HandleBackButton;
-    }
-
+    
+    // Methods
     private void HandleBackButton()
     {
         Debug.Log("Back");
-    }
-
-    private void HandleCloseCase2Button()
-    {
-        Debug.Log("Close Case 2");
-    }
-
-    private void HandleOpenCase2Button()
-    {
-        Debug.Log("Open Case 2");
+        m_ApplicationStateManager.SetState(ApplicationStateType.Home);
     }
 
     private void HandleCloseCase1Button()
     {
         Debug.Log("Close Case 1");
+        m_ApplicationStateManager.SetState(ApplicationStateType.Cases);
     }
 
     private void HandleOpenCase1Button()
     {
         Debug.Log("Open Case 1");
+        m_ApplicationStateManager.SetState(ApplicationStateType.Case3d);
     }
-    
 
-    void IStartable.Start()
+    private void HandleCloseCase2Button()
     {
-        Debug.Log("Starting Cases");
+        Debug.Log("Close Case 2");
+        m_ApplicationStateManager.SetState(ApplicationStateType.Cases);
+    }
+
+    private void HandleOpenCase2Button()
+    {
+        Debug.Log("Open Case 2");
+        m_ApplicationStateManager.SetState(ApplicationStateType.Case3d);
     }
 }

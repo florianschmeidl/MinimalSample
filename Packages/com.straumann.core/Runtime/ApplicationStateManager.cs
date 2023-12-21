@@ -39,8 +39,10 @@ public class ApplicationStateManager : IApplicationStateManager
             }
         }
         
-        if(m_CurrentApplicationState != null)
+        if (m_CurrentApplicationState != null)
+        {
             m_CurrentApplicationState.Exit();
+        }
 
         if (nextApplicationState != null)
         {

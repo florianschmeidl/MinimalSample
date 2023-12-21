@@ -24,9 +24,9 @@ public class UserService : IUserService
 
         if(RandomTrueOrFalseUtility.RandomTrueOrFalse == true)
         {
-            Debug.Log($"[{this}] Login success!");
             IsLoggedIn = true;
             LoggedInUser = userName;
+            Debug.Log($"[{this}] Login success");
             return true;
         }
         else
@@ -39,6 +39,8 @@ public class UserService : IUserService
 
     public Awaitable LogOut()
     {
-        throw new System.NotImplementedException();
+        IsLoggedIn = false;
+        LoggedInUser = "";
+        return Awaitable.EndOfFrameAsync();
     }
 }

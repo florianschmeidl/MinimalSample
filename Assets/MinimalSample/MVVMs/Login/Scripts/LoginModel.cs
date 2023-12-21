@@ -50,9 +50,9 @@ public class LoginModel
     }
     
     // Methods
-    public async Awaitable<bool> TryLogIn()
+    public async Awaitable<bool> TryLogIn(string userName)
     {
-        var logIn = await m_UserService.LogIn(m_UserName, m_Password);
+        var logIn = await m_UserService.LogIn(userName, m_Password);
         if (logIn)
         {
             m_ApplicationStateManager.SetState(ApplicationStateType.Home);

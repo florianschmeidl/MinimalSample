@@ -25,14 +25,12 @@ public class LoginViewModel : IInitializable, IStartable
     [CreateProperty] 
     public DisplayStyle LoadingVisibility { get; set; } = DisplayStyle.None;
 
-    [CreateProperty] 
-    public Action ButtonClicked { get; private set; }
+    [CreateProperty] public Action ButtonClicked => HandleButtonClicked;
 
     // Constructors
     public LoginViewModel(LoginModel loginModel)
     {
         Debug.Log($"[{this}] Constructor called!");
-        ButtonClicked = HandleButtonClicked;
         m_LoginModel = loginModel;
     }
 
@@ -48,7 +46,7 @@ public class LoginViewModel : IInitializable, IStartable
         Debug.Log($"[{this}] Started!");
     }
 
-    // Callback for model updated
+    // Methods
     private void UpdateFromModel(LoginModelChangedEventArgs loginModelChangedEventArgs)
     {
         Debug.Log($"[{this}] Received update from model!");
@@ -57,7 +55,6 @@ public class LoginViewModel : IInitializable, IStartable
         this.Password = loginModelChangedEventArgs.Password;
     }
 
-    // Handlers for user interactions
     private async void HandleButtonClicked()
     {
         Debug.Log($"[{this}] HandleButtonClicked!");
@@ -67,7 +64,7 @@ public class LoginViewModel : IInitializable, IStartable
 
         LoadingVisibility = DisplayStyle.Flex;
 
-        var success = await m_LoginModel.TryLogIn();
+        var success = await m_LoginModel.TryLogIn(UserName);
 
         LoadingVisibility = DisplayStyle.None;
 

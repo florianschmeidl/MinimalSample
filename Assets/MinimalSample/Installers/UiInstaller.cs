@@ -24,6 +24,5 @@ public class UiInstaller : MonoBehaviour, IInstaller
         builder.Register<IViewBuilder, HomeViewBuilder>(Lifetime.Scoped);
 
         builder.Register<IViewValidator, ViewValidator>(Lifetime.Singleton);
-
     }
 }

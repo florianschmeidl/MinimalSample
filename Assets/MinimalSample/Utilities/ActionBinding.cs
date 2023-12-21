@@ -13,11 +13,13 @@
  
         Action? _onAction;
  
-        public ActionBinding() {
+        public ActionBinding()
+        {
             updateTrigger = BindingUpdateTrigger.OnSourceChanged;
         }
  
-        public string Property {
+        public string Property
+        {
             get => (string)propertyPropertyInfo.GetValue(this)!;
             set => propertyPropertyInfo.SetValue(this, value);
         }
@@ -26,19 +28,22 @@
         public PropertyPath dataSourcePath { get; set; }
  
         [UxmlAttribute("data-source-path")]
-        public string DataSourcePathString {
+        public string DataSourcePathString
+        {
             get => dataSourcePath.ToString();
             set => dataSourcePath = new PropertyPath(value);
         }
  
-        static EventInfo GetEventInfo(Type type, string name) {
+        static EventInfo GetEventInfo(Type type, string name)
+        {
             if (_eventInfos.TryGetValue((type, name), out var eventInfo)) return eventInfo;
             eventInfo = type.GetEvent(name);
             _eventInfos.Add((type, name), eventInfo);
             return eventInfo;
         }
  
-        protected override void OnDataSourceChanged(in DataSourceContextChanged context) {
+        protected override void OnDataSourceChanged(in DataSourceContextChanged context)
+        {
             var element = context.targetElement;
             var type = element.GetType();
             var eventInfo = GetEventInfo(type, Property);

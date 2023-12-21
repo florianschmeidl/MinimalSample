@@ -23,7 +23,7 @@ namespace Straumann.UI
 
         public async Awaitable<UIDocument> Make(ViewType viewType)
         {
-            VisualTreeAsset visualTreeAsset = await m_VisualTreeProvider.GetAsync(viewType);
+            var visualTreeAsset = await m_VisualTreeProvider.GetAsync(viewType);
             var uiDocument = m_ViewFactory.Make(viewType, visualTreeAsset);
 
             foreach (var visualBuilder in m_VisualBuilders)

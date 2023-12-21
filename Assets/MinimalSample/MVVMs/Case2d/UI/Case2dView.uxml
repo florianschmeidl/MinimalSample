@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; -unity-background-image-tint-color: rgb(14, 152, 178); background-color: rgb(2, 155, 168);">
+        <ui:Label text="CaseName" style="-unity-text-align: middle-center; flex-grow: 1; -unity-font-style: bold; font-size: 20px;">
+            <Bindings>
+                <ui:DataBinding property="text" binding-mode="ToTarget" data-source-path="CaseName" />
+            </Bindings>
+        </ui:Label>
+    </ui:VisualElement>
+</ui:UXML>

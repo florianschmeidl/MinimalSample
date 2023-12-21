@@ -4,19 +4,19 @@ using VContainer;
 
 namespace MVVMs.Home.Scripts
 {
-    public class HomeViewBuilder : IViewBuilder
+    public class CasesViewBuilder : IViewBuilder
     {
         // Dependencies
         private readonly IObjectResolver m_ObjectResolver;
 
         // Members
-        private HomeViewModel m_HomeViewModel;
+        private CasesViewModel m_CasesViewModel;
         
         // Properties
-        public ViewType TargetType => ViewType.Home;
+        public ViewType TargetType => ViewType.Cases;
         
         // Constructors
-        public HomeViewBuilder(IObjectResolver objectResolver)
+        public CasesViewBuilder(IObjectResolver objectResolver)
         {
             m_ObjectResolver = objectResolver;
         }
@@ -24,12 +24,12 @@ namespace MVVMs.Home.Scripts
         // Methods
         public void Build(UIDocument uiDocument)
         {
-            if (m_HomeViewModel == null)
+            if (m_CasesViewModel == null)
             {
-                m_HomeViewModel = m_ObjectResolver.Resolve<HomeViewModel>();
+                m_CasesViewModel = m_ObjectResolver.Resolve<CasesViewModel>();
             }
             
-            uiDocument.rootVisualElement.dataSource = m_HomeViewModel;
+            uiDocument.rootVisualElement.dataSource = m_CasesViewModel;
         }
     }
 }

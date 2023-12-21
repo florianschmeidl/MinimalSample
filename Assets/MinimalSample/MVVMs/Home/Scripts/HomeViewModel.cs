@@ -4,51 +4,44 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using VContainer.Unity;
 
-public class HomeViewModel : IStartable, IInitializable
+public class HomeViewModel
 {
     // Dependencies
-    private readonly UIDocument m_LoginUIDocument;
-    private readonly HomeModel m_HomeModel;
+    private readonly IUserService m_UserService;
+    private readonly IApplicationStateManager m_ApplicationStateManager;
 
     // Properties
     [CreateProperty]
-    public string HelloLabel { get; set; } = "Hello XY";
+    public string HelloLabel { get; set; }
     
     [CreateProperty]
     public DisplayStyle LoadingVisibility { get; set; } = DisplayStyle.None;
+
+    [CreateProperty]
+    public Action LogoutButtonClicked => HandleLogOutButtonClicked;
+    
+    [CreateProperty]
+    public Action CasesButtonClicked => HandleCasesButtonClicked;
     
     // Constructors
-    public HomeViewModel(UIDocument loginUIDocument, HomeModel homeModel)
+    public HomeViewModel(IUserService userService, IApplicationStateManager applicationStateManager)
     {
-        m_LoginUIDocument = loginUIDocument;
-        m_HomeModel = homeModel;       
-    }
+        m_UserService = userService;
+        m_ApplicationStateManager = applicationStateManager;
 
-    void IInitializable.Initialize()
-    {
-        UpdateFromModel(null, EventArgs.Empty);
-        m_HomeModel.Changed += UpdateFromModel;
-        m_LoginUIDocument.rootVisualElement.dataSource = this;
-        var casesButton = m_LoginUIDocument.rootVisualElement.Query<Button>().Where(x => x.name == "CasesButton").First();
-        var logoutButton = m_LoginUIDocument.rootVisualElement.Query<Button>().Where(x => x.name == "LogOutButton").First();
-        casesButton.clicked += HandleCasesButtonClicked;
-        logoutButton.clicked += HandleLogOutButtonClicked;
-    }
-
-    private void UpdateFromModel(object sender, EventArgs e)
-    {
-        this.HelloLabel = $"Hello {m_HomeModel.UserName}";
+        var userName = m_UserService.LoggedInUser;
+        HelloLabel = $"hello {userName}";
     }
 
     private async void HandleLogOutButtonClicked()
     {
         LoadingVisibility = DisplayStyle.Flex;
 
-        await m_HomeModel.TryLogOut();
-
         Debug.Log("Logout");
-        
+        await m_UserService.LogOut();
+        m_ApplicationStateManager.SetState(ApplicationStateType.Login);
         LoadingVisibility = DisplayStyle.None;
+        // todo discuss state after delete
     }
 
     private void HandleCasesButtonClicked()
@@ -56,13 +49,7 @@ public class HomeViewModel : IStartable, IInitializable
         LoadingVisibility = DisplayStyle.Flex;
         
         Debug.Log("Cases");
-        // open cases
-        
+        m_ApplicationStateManager.SetState(ApplicationStateType.Cases);
         LoadingVisibility = DisplayStyle.None;
-    }
-
-    void IStartable.Start()
-    {
-        Debug.Log("Starting Home");
     }
 }
