@@ -15,5 +15,8 @@ public class ServiceInstaller : MonoBehaviour, IInstaller
 
         // OnlineState
         builder.Register<IOnlineStateProvider, OnlineStateProvider>(Lifetime.Singleton);
+        
+        // CaseService
+        builder.Register<ICurrentCaseService, CurrentCaseService>(Lifetime.Singleton);
     }
 }
