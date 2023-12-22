@@ -10,10 +10,9 @@ namespace Installers
         {
             builder.Register<LoginViewModel>(Lifetime.Singleton);
             builder.Register<LoginModel>(Lifetime.Singleton);
-
             builder.Register<HomeViewModel>(Lifetime.Singleton);
-
             builder.Register<CasesViewModel>(Lifetime.Singleton);
+            builder.Register<Case2dViewModel>(Lifetime.Singleton);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace StateHandling.Handlers
         private readonly IViewValidator m_ViewValidator;
         
         // Properties
-        public ApplicationStateType ApplicationStateType => ApplicationStateType.Cases;
+        public ApplicationStateType ApplicationStateType => ApplicationStateType.Case3d;
 
         // Constructors
         public Case3dState(IViewValidator viewValidator)

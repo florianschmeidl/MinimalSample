@@ -1,10 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement data-source-type="CasesViewModel" style="flex-grow: 1; -unity-background-image-tint-color: rgb(39, 212, 194); background-color: rgb(242, 248, 111);">
-        <ui:Label text="Cases" enable-rich-text="true" name="Title" style="align-items: center; justify-content: center; -unity-text-align: upper-center;">
-            <Bindings>
-                <ui:DataBinding property="text" binding-mode="ToSource" data-source-path="HelloLabel" />
-            </Bindings>
-        </ui:Label>
+    <ui:VisualElement data-source-type="CasesViewModel, Assembly-CSharp" style="flex-grow: 1; -unity-background-image-tint-color: rgb(39, 212, 194); background-color: rgb(242, 248, 111);">
+        <ui:Label text="Cases" enable-rich-text="true" name="Title" style="align-items: center; justify-content: center; -unity-text-align: upper-center;" />
         <ui:Label text="Case 1" />
         <ui:Button text="Open" name="OpenCase1Button">
             <Bindings>
