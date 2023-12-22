@@ -3,6 +3,37 @@ using System.Collections.Generic;
 using Straumann.Core;
 using UnityEngine;
 
+
+// TODO: Rename this e.g. ApplicationStateManagerAggregation?
+public class Aggregate
+{
+    private readonly IApplicationStateManager m_applicationStateManager;
+    private readonly StateSetter m_stateSetter;
+
+    public Aggregate(IApplicationStateManager applicationStateManager, StateSetter stateSetter)
+    {
+        m_applicationStateManager = applicationStateManager;
+        m_stateSetter = stateSetter;
+        stateSetter.ApplicationStateChanged += applicationStateManager.SetState;
+        Debug.Log("Construct Aggregate");
+        stateSetter.SetState(ApplicationStateType.Login);
+    }
+}
+
+// TODO: Rename this e.g. ApplicationStateManager?
+public class StateSetter
+{
+    public StateSetter() { }
+
+    public event Action<ApplicationStateType> ApplicationStateChanged;
+    public void SetState(ApplicationStateType newStateType) 
+    { 
+        Debug.Log("Set state");
+        ApplicationStateChanged?.Invoke(newStateType); 
+    }
+}
+
+// TODO: Rename this e.g. ApplicationStateExecutor?
 public class ApplicationStateManager : IApplicationStateManager
 {
     // Dependencies
@@ -21,7 +52,7 @@ public class ApplicationStateManager : IApplicationStateManager
     public ApplicationStateManager(IReadOnlyList<IApplicationState> applicationStates)
     {
         m_ApplicationStates = applicationStates;
-        SetState(ApplicationStateType.Initialize);
+        //SetState(ApplicationStateType.Initialize);
     }
 
     // Methods

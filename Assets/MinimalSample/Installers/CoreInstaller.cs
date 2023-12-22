@@ -8,7 +8,9 @@ namespace Installers
     {
         public void Install(IContainerBuilder builder)
         {
+            builder.Register<StateSetter>(Lifetime.Scoped);
             builder.Register<IApplicationStateManager, ApplicationStateManager>(Lifetime.Singleton);
+            builder.RegisterNonLazy<Aggregate>(Lifetime.Singleton);
         }
     }
 }

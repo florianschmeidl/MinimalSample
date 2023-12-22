@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using VContainer.Unity;
 
-public class LoginViewModel : IInitializable, IStartable
+public class LoginViewModel
 {
     // Dependencies
     private readonly LoginModel m_LoginModel;
@@ -32,18 +32,7 @@ public class LoginViewModel : IInitializable, IStartable
     {
         Debug.Log($"[{this}] Constructor called!");
         m_LoginModel = loginModel;
-    }
-
-    // Entrypoints
-    void IInitializable.Initialize()
-    {
-        Debug.Log($"[{this}] Initialized!");
         m_LoginModel.LoginModelUpdated += UpdateFromModel;
-    }
-
-    void IStartable.Start()
-    {
-        Debug.Log($"[{this}] Started!");
     }
 
     // Methods

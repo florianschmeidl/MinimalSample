@@ -130,4 +130,9 @@ public static class VContainerExtensions
 
         T Instantiate(IObjectResolver resolver) => resolver.InstantiateAndInject(prefab(resolver));
     }
+    public static void RegisterNonLazy<T>(this IContainerBuilder builder, Lifetime lifetime)
+    {
+        builder.Register<T>(lifetime);
+        builder.RegisterBuildCallback(resolver => resolver.Resolve<T>());
+    }
 }

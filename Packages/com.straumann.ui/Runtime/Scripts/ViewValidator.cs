@@ -13,7 +13,7 @@ namespace Straumann.UI
         private readonly IUIFactory m_UIFactory;
 
         // Members
-        private List<KeyValuePair<ViewType, UIDocument>> m_CurrentViews = new List<KeyValuePair<ViewType, UIDocument>>();
+        private readonly List<KeyValuePair<ViewType, UIDocument>> m_CurrentViews = new();
         
         // Constructors
         public ViewValidator(IUIFactory uiFactory)
@@ -23,6 +23,8 @@ namespace Straumann.UI
 
         public async Awaitable AddView(ViewType viewType)
         {
+            // TODO: With this implementation we can't spawn new views of the same type, 
+            // since their view type is are already registered in the current view list
             if (NeedsSpawn(viewType))
             {
                 var uiDocument = await m_UIFactory.Make(viewType);
@@ -32,6 +34,7 @@ namespace Straumann.UI
         
         public async void UpdateViews(ViewType[] mandatoryViews, params ViewType[] optionalViews)
         {
+            // TODO: we need to destroy the views before we instantiate the new ones
             foreach (var mandatoryView in mandatoryViews)
             {
                 await AddView(mandatoryView);

@@ -8,28 +8,20 @@ namespace MVVMs.Login.Scripts
     public class LoginViewBuilder : IViewBuilder
     {
         // Dependencies
-        private readonly IObjectResolver m_ObjectResolver;
-
-        // Members
         private LoginViewModel m_LoginViewModel;
 
         // Properties
         public ViewType TargetType => ViewType.Login;
 
         // Constructors
-        public LoginViewBuilder(IObjectResolver objectResolver)
+        public LoginViewBuilder(LoginViewModel loginViewModel)
         {
-            m_ObjectResolver = objectResolver;
+            m_LoginViewModel = loginViewModel;
         }
 
         // Methods
         public void Build(UIDocument uiDocument)
-        {
-            if (m_LoginViewModel == null)
-            {
-                m_LoginViewModel = m_ObjectResolver.Resolve<LoginViewModel>();
-            }
-            
+        {            
             uiDocument.rootVisualElement.dataSource = m_LoginViewModel;
         }
     }

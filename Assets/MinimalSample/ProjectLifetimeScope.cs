@@ -1,6 +1,4 @@
-﻿using Straumann.Core;
-using UnityEngine;
-using VContainer;
+﻿using VContainer;
 using VContainer.Unity;
 
 public class ProjectLifetimeScope : LifetimeScope
@@ -12,11 +10,5 @@ public class ProjectLifetimeScope : LifetimeScope
         {
             installer.Install(builder);
         }
-        
-        builder.RegisterBuildCallback(resolver =>
-        {
-            // Instantiate first view
-            resolver.Resolve<IApplicationStateManager>().SetState(ApplicationStateType.Login);
-        });
     }
 }

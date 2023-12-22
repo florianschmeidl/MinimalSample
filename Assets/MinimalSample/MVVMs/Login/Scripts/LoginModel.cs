@@ -4,7 +4,7 @@ public class LoginModel
 {
     // Dependencies
     private readonly IUserService m_UserService;
-    private readonly IApplicationStateManager m_ApplicationStateManager;
+    private readonly StateSetter m_ApplicationStateManager;
 
     // Events
     public event LoginModelUpdated LoginModelUpdated;
@@ -37,7 +37,7 @@ public class LoginModel
     private string m_Password;
     
     // Constructors
-    public LoginModel(IUserService userService, IApplicationStateManager applicationStateManager)
+    public LoginModel(IUserService userService, StateSetter applicationStateManager)
     {
         Debug.Log($"[{this}] Constructor called!");
 
